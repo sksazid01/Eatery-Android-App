@@ -48,16 +48,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             EateryAppTheme {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "BottomNavBar") {
+            NavHost(navController = navController, startDestination = "Class06") {
                 composable("Main") { FirstScreen(navController)}
                 composable("Class02") { Class02.View02(navController) }
                 composable("Class03"){ Class03.View03(navController)}
                 composable("Class04"){ Class04.View04(navController)}
                 composable("Class05"){ Class05.View05(navController)}
-                composable("Class06"){ Class06.View06(navController)}
-                composable("QR"){QR.Qr(navController)}
-                composable("BottomNavBar"){BottomNavigationBar.BottomNavigationBar(navController)}
-//                composable("Class0"){ Class0.View0()}
+                composable("Class06"){BottomNavigationBar.BottomNavigationBar()}
             }
 
 //            navController.navigate("Class03")
