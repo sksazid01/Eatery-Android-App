@@ -1,11 +1,13 @@
 package com.example.eateryapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
@@ -54,6 +56,7 @@ data class BottomNavigationItems(
 
 class BottomNavigationBar {
     companion object{
+        @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
         @Composable
         fun BottomNavigationBar(){
             val items = listOf(
@@ -83,11 +86,15 @@ class BottomNavigationBar {
 
 
             Scaffold(
-                bottomBar = { BottomBar(items) }
+                bottomBar = { BottomBar(items) },
+//                modifier = Modifier.padding(4.dp)
             ) {
-                NavHost(navController = navController, startDestination = "Class06") {
+                NavHost(navController = navController, startDestination = "Login") {
                     composable("Class06"){ Class06.View06(navController)}
                     composable("QR"){QR.Qr(navController)}
+                    composable("Class08"){Class08.View08(navController)}
+                    composable("Class10"){Class10.View10(navController)}
+                    composable("Login"){Login.Login(navController)}
 //                composable("Class0"){ Class0.View0()}
                 }
             }
@@ -103,12 +110,11 @@ class BottomNavigationBar {
 
                 NavigationBar(
                     containerColor  = Color.Black,
-//                    modifier = Modifier.height(50.dp)
+                    modifier = Modifier.height(100.dp)
 
                 ) {
                     items.forEachIndexed {
                             index, item ->
-
 
                         NavigationBarItem(
 //                            colors = NavigationBarItemDefaults.colors(Color(0xFFBB6748)),
