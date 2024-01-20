@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
@@ -34,8 +35,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 
 data class BottomNavigationItems(
@@ -47,13 +53,9 @@ data class BottomNavigationItems(
 )
 
 class BottomNavigationBar {
-
-
     companion object{
-        @OptIn(ExperimentalMaterial3Api::class)
         @Composable
-        fun BottomNavigationBar(navController: NavController){
-
+        fun BottomNavigationBar(){
             val items = listOf(
                 BottomNavigationItems(
                     title = "Home",
@@ -76,67 +78,80 @@ class BottomNavigationBar {
                 ),
             )
 
-            var selectedItemIndex by rememberSaveable {
-                mutableStateOf(0)
-            }
+
+            val navController = rememberNavController()
 
 
             Scaffold(
-                bottomBar = {
-                    NavigationBar(
-                        containerColor  = Color.Black,
-//                        modifier = Modifier.background(Color.Red)
-                    ) {
-                        items.forEachIndexed {
-                         index, item ->
-                            NavigationBarItem(
+                bottomBar = { BottomBar(items) }
+            ) {
+                NavHost(navController = navController, startDestination = "Class06") {
+                    composable("Class06"){ Class06.View06(navController)}
+                    composable("QR"){QR.Qr(navController)}
+//                composable("Class0"){ Class0.View0()}
+                }
+            }
+        }
+
+        @OptIn(ExperimentalMaterial3Api::class)
+        @Composable
+        fun BottomBar(items:List<BottomNavigationItems>)
+            {
+                var selectedItemIndex by rememberSaveable {
+                    mutableStateOf(0)
+                }
+
+                NavigationBar(
+                    containerColor  = Color.Black,
+//                    modifier = Modifier.height(50.dp)
+
+                ) {
+                    items.forEachIndexed {
+                            index, item ->
 
 
-
-                                colors = NavigationBarItemDefaults.colors(Color.White),
-
-
-                                
-                                selected = selectedItemIndex == index,
-                                onClick = {
-                                    selectedItemIndex = index
-                                    // navController.navigate(item.title)
-                                },
-                                label = {
-                                    Text(text = item.title)
-                                },
-                                alwaysShowLabel = false,
-                                icon = {
-                                    BadgedBox(
-                                        badge = {
-                                            if(item.badgeCount != null) {
-                                                Badge {
-                                                    Text(text = item.badgeCount.toString())
-                                                }
+                        NavigationBarItem(
+//                            colors = NavigationBarItemDefaults.colors(Color(0xFFBB6748)),
+                            selected = selectedItemIndex == index,
+                            onClick = {
+                                selectedItemIndex = index
+                                // navController.navigate(item.title)
+                            },
+                            label = {
+                                Text(text = item.title,
+//                                    fontWeight = FontWeight.ExtraBold,
+                                    color = Color.White
+                                )
+                            },
+//                            alwaysShowLabel = false,
+                            icon = {
+                                BadgedBox(
+                                    badge = {
+                                        if(item.badgeCount != null) {
+                                            Badge {
+                                                Text(text = item.badgeCount.toString())
                                             }
-
-
-//                                                else if(item.hasNews) {
-//                                                    Badge()
-//                                                }   //apatoto no needed
                                         }
-                                    ) {
-                                        Icon(
-                                            imageVector = if (index == selectedItemIndex) {
-                                                item.selectedIcon
-                                            } else item.unselectedIcon,
-                                            contentDescription = item.title
-                                        )
+
+
+                                                else if(item.hasNews) {
+                                                    Badge()
+                                                }   //apatoto no needed
                                     }
+                                ) {
+                                    Icon(
+                                        imageVector = if (index == selectedItemIndex) {
+                                            item.selectedIcon
+                                        } else item.unselectedIcon,
+                                        contentDescription = "",
+                                        tint = if(index == selectedItemIndex) Color.Blue else Color(0xFFBB6748)
+                                    )
                                 }
-                            )
-                        }
+                            }
+                        )
                     }
                 }
-            ) {
-                    Class06.View06(navController = navController)
             }
-
         }
-    }
+
 }
