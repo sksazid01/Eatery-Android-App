@@ -81,20 +81,20 @@ class BottomNavigationBar {
                 ),
             )
 
-
             val navController = rememberNavController()
 
-
             Scaffold(
-                bottomBar = { BottomBar(items) },
+                bottomBar = { BottomBar(items,navController) },
 //                modifier = Modifier.padding(4.dp)
             ) {
-                NavHost(navController = navController, startDestination = "Login") {
+                NavHost(navController = navController, startDestination = "SignUp") {
                     composable("Class06"){ Class06.View06(navController)}
                     composable("QR"){QR.Qr(navController)}
                     composable("Class08"){Class08.View08(navController)}
                     composable("Class10"){Class10.View10(navController)}
                     composable("Login"){Login.Login(navController)}
+                    composable("SignUp"){SignUP.SignUP(navController)}
+
 //                composable("Class0"){ Class0.View0()}
                 }
             }
@@ -102,11 +102,9 @@ class BottomNavigationBar {
 
         @OptIn(ExperimentalMaterial3Api::class)
         @Composable
-        fun BottomBar(items:List<BottomNavigationItems>)
+        fun BottomBar(items:List<BottomNavigationItems>,navController: NavController)
             {
-                var selectedItemIndex by rememberSaveable {
-                    mutableStateOf(0)
-                }
+                var selectedItemIndex by rememberSaveable {mutableStateOf(0)}
 
                 NavigationBar(
                     containerColor  = Color.Black,
@@ -121,6 +119,15 @@ class BottomNavigationBar {
                             selected = selectedItemIndex == index,
                             onClick = {
                                 selectedItemIndex = index
+                                if(index==0){
+                                    navController.navigate("Class06")
+                                }
+                                else if(index==1){
+                                    navController.navigate("Class10")
+                                }
+                                else{
+                                    navController.navigate("Login")
+                                }
                                 // navController.navigate(item.title)
                             },
                             label = {

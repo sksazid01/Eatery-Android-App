@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -83,25 +84,23 @@ class Class05 {
                     Spacer(modifier = Modifier.height(30.dp))
 
                     var title by remember { mutableStateOf("") }
-                    TextField(
+                    OutlinedTextField(
                         value = title, onValueChange = { newText -> title = newText },
                         shape = RoundedCornerShape(15.dp),
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         label= { Text("Title") },
-                        colors = TextFieldDefaults.colors()
                         )
 
                     Spacer(modifier = Modifier.height(55.dp))
 
                     var address by remember { mutableStateOf("") }
-                    TextField(
+                    OutlinedTextField(
                         value = address, onValueChange = { newText -> address = newText },
                         shape = RoundedCornerShape(15.dp),
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         label= { Text("New Address") },
-                        colors = TextFieldDefaults.colors()
                     )
                     Spacer(modifier = Modifier.height(55.dp))
 

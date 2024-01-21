@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -66,7 +67,7 @@ class Login {
                         )
 
                         var mailStore by remember { mutableStateOf("") }
-                        TextField(
+                        OutlinedTextField(
                             value =mailStore ,
                             onValueChange ={ mailStore=it},
                             singleLine = true,
@@ -79,17 +80,15 @@ class Login {
                         )
 
                         var passStore by remember {mutableStateOf("") }
-                        TextField(
-                            value =passStore ,
-                            onValueChange ={ passStore=it},
-                            singleLine = true,
-                            label = { Text(text = "Password")},
+                        OutlinedTextField(value = passStore , onValueChange = { passStore=it},
+                        singleLine = true,
+                        label = { Text(text = "Password")},
 //                            colors = TextFieldDefaults.colors()
-                            modifier= Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 30.dp),
-                            shape = RoundedCornerShape(20.dp)
-                        )
+                        modifier= Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 30.dp),
+                        shape = RoundedCornerShape(20.dp))
+
                         Button(
                             onClick = {
 
@@ -119,8 +118,11 @@ class Login {
                             Text(
                                 text="Sign Up",
                                 fontSize = 20.sp,
-                                modifier = Modifier.padding(5.dp).clickable {
-                                },
+                                modifier = Modifier
+                                    .padding(5.dp)
+                                    .clickable {
+                                               navController.navigate("SignUP")
+                                    },
                                 color = Color.Blue
                             )
 
