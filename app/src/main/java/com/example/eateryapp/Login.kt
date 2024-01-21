@@ -120,10 +120,10 @@ class Login {
                                 text="Sign Up",
                                 fontSize = 20.sp,
                                 modifier = Modifier.padding(5.dp).clickable {
-
                                 },
                                 color = Color.Blue
                             )
+
                         }
 
                     }
