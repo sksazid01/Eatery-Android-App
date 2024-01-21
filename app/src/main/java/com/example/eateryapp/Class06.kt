@@ -25,6 +25,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -100,14 +101,16 @@ class Class06 {
 
                    var address by remember { mutableStateOf("") }
 
-                   Row {
+                   Row (
+                       modifier = Modifier.background(Color.Transparent)
+                   ){
                        Spacer(modifier = Modifier.weight(1f))
-                       TextField(
+                       OutlinedTextField(
                            value = address, onValueChange = { newText -> address = newText },
                            shape = RoundedCornerShape(15.dp),
                            modifier = Modifier
                                .width(350.dp)
-                               .height(30.dp),
+                               .height(70.dp),
                            singleLine = true,
                            label = {
                                Row {

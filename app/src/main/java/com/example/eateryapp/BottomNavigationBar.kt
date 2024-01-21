@@ -89,7 +89,7 @@ class BottomNavigationBar {
                 bottomBar = { BottomBar(items) },
 //                modifier = Modifier.padding(4.dp)
             ) {
-                NavHost(navController = navController, startDestination = "Login") {
+                NavHost(navController = navController, startDestination = "Class10") {
                     composable("Class06"){ Class06.View06(navController)}
                     composable("QR"){QR.Qr(navController)}
                     composable("Class08"){Class08.View08(navController)}

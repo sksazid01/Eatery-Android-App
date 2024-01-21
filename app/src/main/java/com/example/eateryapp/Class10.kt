@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,6 +25,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -100,7 +103,7 @@ class Class10 {
                             modifier = Modifier.padding(bottom = 5.dp, start = 5.dp)
                         )
                         var textfield by remember {mutableStateOf("") }
-                        TextField(
+                        OutlinedTextField(
                             value =textfield ,
                             onValueChange ={ textfield=it},
                             singleLine = true,
@@ -143,17 +146,17 @@ class Class10 {
                 }}
         @Composable
         fun CartItem(item: RestaurantItems){
-           Card (
+           OutlinedCard (
                modifier = Modifier
                    .padding(5.dp)
                    .height(90.dp)
-                   .background(Color.Transparent)
+//                   .background(Color.Transparent)
                    .fillMaxWidth()
            ){
                Row(
                    modifier = Modifier
                        .fillMaxSize()
-                       .background(Color.Transparent)
+//                       .background(Color.R)
                ) {
                    Image(painter = item.image, contentDescription ="" ,
                        alignment = Alignment.CenterStart,
@@ -163,7 +166,8 @@ class Class10 {
                    Spacer(modifier = Modifier.weight(1f))
                    Column(
                        verticalArrangement = Arrangement.Center,
-                       horizontalAlignment = Alignment.CenterHorizontally
+                       horizontalAlignment = Alignment.CenterHorizontally,
+                       modifier = Modifier.background(Color.Transparent).fillMaxHeight()
                    ) {
                        Text(text = item.itemName)
                        Text(text = item.price.toString()+"৳",
