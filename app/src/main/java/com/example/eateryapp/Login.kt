@@ -121,7 +121,6 @@ class Login {
                                 modifier = Modifier
                                     .padding(5.dp)
                                     .clickable {
-                                               navController.navigate("SignUP")
                                     },
                                 color = Color.Blue
                             )

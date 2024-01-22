@@ -103,68 +103,68 @@ class BottomNavigationBar {
         @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         fun BottomBar(items:List<BottomNavigationItems>,navController: NavController)
-            {
-                var selectedItemIndex by rememberSaveable {mutableStateOf(0)}
+        {
+            var selectedItemIndex by rememberSaveable {mutableStateOf(0)}
 
-                NavigationBar(
-                    containerColor  = Color.Black,
-                    modifier = Modifier.height(100.dp)
+            NavigationBar(
+                containerColor  = Color.Black,
+                modifier = Modifier.height(100.dp)
 
-                ) {
-                    items.forEachIndexed {
-                            index, item ->
+            ) {
+                items.forEachIndexed {
+                        index, item ->
 
-                        NavigationBarItem(
+                    NavigationBarItem(
 //                            colors = NavigationBarItemDefaults.colors(Color(0xFFBB6748)),
-                            selected = selectedItemIndex == index,
-                            onClick = {
-                                selectedItemIndex = index
-                                if(index==0){
-                                    navController.navigate("Class06")
-                                }
-                                else if(index==1){
-                                    navController.navigate("Class10")
-                                }
-                                else{
-                                    navController.navigate("Login")
-                                }
-                                // navController.navigate(item.title)
-                            },
-                            label = {
-                                Text(text = item.title,
-//                                    fontWeight = FontWeight.ExtraBold,
-                                    color = Color.White
-                                )
-                            },
-//                            alwaysShowLabel = false,
-                            icon = {
-                                BadgedBox(
-                                    badge = {
-                                        if(item.badgeCount != null) {
-                                            Badge {
-                                                Text(text = item.badgeCount.toString())
-                                            }
-                                        }
-
-
-                                                else if(item.hasNews) {
-                                                    Badge()
-                                                }   //apatoto no needed
-                                    }
-                                ) {
-                                    Icon(
-                                        imageVector = if (index == selectedItemIndex) {
-                                            item.selectedIcon
-                                        } else item.unselectedIcon,
-                                        contentDescription = "",
-                                        tint = if(index == selectedItemIndex) Color.Blue else Color(0xFFBB6748)
-                                    )
-                                }
+                        selected = selectedItemIndex == index,
+                        onClick = {
+                            selectedItemIndex = index
+                            if(index==0){
+                                navController.navigate("Class06")
                             }
-                        )
-                    }
+                            else if(index==1){
+                                navController.navigate("Class10")
+                            }
+                            else{
+                                navController.navigate("Login")
+                            }
+                            // navController.navigate(item.title)
+                        },
+                        label = {
+                            Text(text = item.title,
+//                                    fontWeight = FontWeight.ExtraBold,
+                                color = Color.White
+                            )
+                        },
+//                            alwaysShowLabel = false,
+                        icon = {
+                            BadgedBox(
+                                badge = {
+                                    if(item.badgeCount != null) {
+                                        Badge {
+                                            Text(text = item.badgeCount.toString())
+                                        }
+                                    }
+
+
+                                    else if(item.hasNews) {
+                                        Badge()
+                                    }   //apatoto no needed
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = if (index == selectedItemIndex) {
+                                        item.selectedIcon
+                                    } else item.unselectedIcon,
+                                    contentDescription = "",
+                                    tint = if(index == selectedItemIndex) Color.Blue else Color(0xFFBB6748)
+                                )
+                            }
+                        }
+                    )
                 }
             }
         }
+    }
 
 }
