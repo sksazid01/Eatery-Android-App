@@ -122,7 +122,7 @@ class SignUP {
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         Text(
-                            text="Already have an account",
+                            text="Already have an account,",
                             fontSize = 20.sp,
                             modifier = Modifier.padding(20.dp),
                             color = Color.White
