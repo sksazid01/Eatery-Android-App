@@ -83,7 +83,7 @@ class Class04 {
                     )
                     Text(
                         text = "Choose favorite dishes!",
-                        fontSize = 25.sp,
+                        fontSize = 22.sp,
                         color = Color.Red,
                         fontStyle = FontStyle.Italic,
                         fontWeight = FontWeight.ExtraBold,
@@ -93,7 +93,7 @@ class Class04 {
                     Text(
                         text = "In publishing and graphic design, Lorem ipsum is a\nplaceholder text commonly used to demonstrate the\n visual form of a document",
 //                                modifier = Modifier.size(300.dp),
-                        fontSize = 15.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.Black,
                         fontStyle = FontStyle.Italic,
@@ -108,7 +108,7 @@ class Class04 {
 //                        Spacer(modifier = Modifier.height(250.dp))
                     Button(
                         onClick = {
-                                  navController.navigate("Class05")
+                                  navController.navigate("MapClass")
                                   },
                         modifier = Modifier
                             .padding(30.dp)

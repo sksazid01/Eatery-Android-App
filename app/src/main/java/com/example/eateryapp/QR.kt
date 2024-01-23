@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,9 +22,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
@@ -31,12 +34,18 @@ class QR {
     companion object{
         @Composable
         fun Qr(navController: NavController){
+
+            val configuration = LocalConfiguration.current
+            val screenWidthDp = configuration.screenWidthDp.dp
+            val screenHeightDp = configuration.screenHeightDp.dp
+
             Column {
 //                BottomNavigationBar.BottomNavigationBar()
                 Box(
 //                        contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .fillMaxSize()
+                        .width(screenWidthDp)
+                        .height(screenHeightDp-100.dp)
                         .background(
                             brush = Brush.linearGradient(
                                 colors = listOf(
@@ -57,20 +66,19 @@ class QR {
                         Text(
                             text = "Scan QR Code",
                             color = Color.Red,
-                            fontSize = 45.sp,
+                            fontSize = 10.em,
                             fontWeight = FontWeight.ExtraBold,
-                            modifier = Modifier.padding(20.dp)
+                            modifier = Modifier.padding()
                         )
                         Text(
                             text = "To Select Table Number",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp
-
+                            fontSize = 4.em
                         )
                         Text(
                             text = "and Find Menu",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp
+                            fontSize = 4.em
 
                         )
                         Spacer(modifier = Modifier.height(60.dp))

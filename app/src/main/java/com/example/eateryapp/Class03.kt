@@ -72,7 +72,7 @@ class Class03 {
                         Text(
                             text = "Skip > ",
                             color = Color.Red,
-                            modifier = Modifier.padding(10.dp).clickable { navController.navigate("Class05") },
+                            modifier = Modifier.padding(10.dp).clickable { navController.navigate("MapClass") },
                             fontWeight = FontWeight.ExtraBold
                         )
                 }
@@ -92,7 +92,7 @@ class Class03 {
                     )
                     Text(
                         text = "Choose favorite dishes!",
-                        fontSize = 25.sp,
+                        fontSize = 22.sp,
                         color = Color.Red,
                         fontStyle = FontStyle.Italic,
                         fontWeight = FontWeight.ExtraBold,
@@ -102,7 +102,7 @@ class Class03 {
                     Text(
                         text = "In publishing and graphic design, Lorem ipsum is a\nplaceholder text commonly used to demonstrate the\n visual form of a document",
 //                                modifier = Modifier.size(300.dp),
-                        fontSize = 15.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.Black,
                         fontStyle = FontStyle.Italic,

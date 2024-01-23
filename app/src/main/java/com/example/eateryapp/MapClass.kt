@@ -14,12 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -38,11 +34,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-class Class05 {
+class MapClass {
     companion object{
         @Composable
         fun View05(navController: NavController){
-
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -61,14 +56,14 @@ class Class05 {
                 Column(
                     modifier = Modifier
 //                        .fillMaxSize()
-                        .padding(10.dp)
+                        .padding(15.dp)
                 ) {
 //                    Spacer(modifier = Modifier.height(40.dp))
                     Image(
                         painter = painterResource(id = R.drawable.map), contentDescription ="",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(400.dp), // Must be needed to use free space
+                            .height(350.dp), // Must be needed to use free space
 //                            .scale(1f),
                         alignment = Alignment.TopCenter,
 
@@ -81,7 +76,7 @@ class Class05 {
 //                        textAlign = TextAlign.End
                     )
 
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.weight(0.2f))
 
                     var title by remember { mutableStateOf("") }
                     OutlinedTextField(
@@ -92,7 +87,7 @@ class Class05 {
                         label= { Text("Title") },
                         )
 
-                    Spacer(modifier = Modifier.height(55.dp))
+                    Spacer(modifier = Modifier.weight(0.2f))
 
                     var address by remember { mutableStateOf("") }
                     OutlinedTextField(
@@ -102,7 +97,7 @@ class Class05 {
                         singleLine = true,
                         label= { Text("New Address") },
                     )
-                    Spacer(modifier = Modifier.height(55.dp))
+                    Spacer(modifier = Modifier.weight(0.2f))
 
                     Row(modifier = Modifier.fillMaxWidth().height(20.dp)) {
                         RadioButton(selected = true, onClick = { /*TODO*/ })
@@ -110,7 +105,7 @@ class Class05 {
                     }
                     Button(
                         onClick = {
-                                  navController.navigate("Class06")
+                                  navController.navigate("RestaurantClass")
                                   },
                         modifier = Modifier
                             .padding(30.dp)

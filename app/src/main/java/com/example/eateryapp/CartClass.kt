@@ -14,9 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
@@ -28,6 +31,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,10 +42,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
@@ -55,10 +61,18 @@ class CartClass {
         companion object{
             @Composable
             fun View10(navController: NavController){
+
+                val configuration = LocalConfiguration.current
+                val screenWidthDp = configuration.screenWidthDp.dp
+                val screenHeightDp = configuration.screenHeightDp.dp
+
+//                val scrollState = rememberScrollState()
+
                 Box(
 //                        contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .fillMaxSize()
+                        .width(screenWidthDp)
+                        .height(screenHeightDp-100.dp)
                         .background(
                             brush = Brush.linearGradient(
                                 colors = listOf(
@@ -70,12 +84,13 @@ class CartClass {
                                 tileMode = TileMode.Decal
                             )
                         )
+//                        .verticalScroll(scrollState)
                 ){
                     Column(
                         modifier = Modifier.padding(30.dp)
                     ) {
 
-                        val itm = List(2) {
+                        val itm = List(3) {
                                 index->
                             RestaurantItems(
                                 itemName = "Chicken Khichuri",
@@ -83,8 +98,8 @@ class CartClass {
                                 image = painterResource(id = R.drawable.chickenkkhichuri),
                                 id=index
                             )}
-                            
-                        Text(text = "2 items in cart", fontSize = 30.sp, fontWeight = FontWeight.ExtraBold)
+
+                        Text(text = " "+itm.size.toString()+" items in cart", fontSize = 25.sp, fontWeight = FontWeight.ExtraBold)
                         LazyColumn(content = {
                             items(itm){
                                 item->
@@ -92,11 +107,11 @@ class CartClass {
                             }
                         })
                         Spacer(modifier = Modifier.weight(1f))
-                        
-                        Text("Order instructions",
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 5.dp, start = 5.dp)
-                        )
+
+//                        Text("Order instructions",
+//                            textAlign = TextAlign.Center,
+//                            modifier = Modifier.padding(bottom = 5.dp, start = 5.dp)
+//                        )
                         var textfield by remember {mutableStateOf("") }
                         OutlinedTextField(
                             value =textfield ,
@@ -104,14 +119,15 @@ class CartClass {
                             singleLine = true,
                             label = { Text(text = "Provide a short instruction")},
 //                            colors = TextFieldDefaults.colors()
-                            modifier=Modifier.fillMaxWidth(),
+                            modifier=Modifier.fillMaxWidth().height(60.dp).padding(start = 10.dp, end = 10.dp),
                             shape = RoundedCornerShape(20.dp)
                         )
-                        Text(text = "Total: ", fontWeight = FontWeight.ExtraBold)
+                        Text(text = "Total: ", fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(start = 15.dp))
                         Button(
                             onClick = { /*TODO*/ },
                             modifier= Modifier
                                 .fillMaxWidth()
+                                .padding(10.dp)
                                 .height(50.dp),
 //                                .background(Color(0xFF644AB5)), wrong approach
                             colors = ButtonDefaults.buttonColors(Color(0xFF644AB5)),
@@ -121,7 +137,7 @@ class CartClass {
                                 text = "Checkout",
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White,
-                                fontSize = 30.sp
+                                fontSize = 4.em
                             )
                         }
                         Row {
@@ -135,7 +151,7 @@ class CartClass {
                         )
                         Spacer(modifier = Modifier.weight(1f))
                     }
-                        Spacer(modifier = Modifier.height(80.dp))
+//                        Spacer(modifier = Modifier.height(80.dp))
 
                     }
                 }}
@@ -159,23 +175,30 @@ class CartClass {
 //                       contentScale = ContentScale.Fit,
                    )
                    Spacer(modifier = Modifier.weight(1f))
+
                    Column(
                        verticalArrangement = Arrangement.Center,
                        horizontalAlignment = Alignment.CenterHorizontally,
-                       modifier = Modifier.background(Color.Transparent).fillMaxHeight()
+                       modifier = Modifier
+                           .background(Color.Transparent)
+                           .fillMaxHeight()
                    ) {
                        Text(text = item.itemName)
                        Text(text = item.price.toString()+"৳",
 //                           textAlign = TextAlign.Center
                            )
+
+                       var value by remember { mutableIntStateOf(0) }
                        Row {
-                           Icon(imageVector = Icons.Default.Add, contentDescription = "",modifier = Modifier.clickable {
-
-                           })
-                           Text(text = " 1 ")
                            Icon(painter = painterResource(id = R.drawable.baseline_remove_24), contentDescription ="",modifier = Modifier.clickable {
-
+                                value--
+                               if(value<0) value=0
                            } )
+
+                           Text(text = "  $value  ")
+                           Icon(imageVector = Icons.Default.Add, contentDescription = "",modifier = Modifier.clickable {
+                                value++
+                           })
                        }
                    }
                Spacer(modifier = Modifier.weight(1f))

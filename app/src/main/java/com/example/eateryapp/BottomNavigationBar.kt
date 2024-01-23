@@ -57,7 +57,7 @@ class BottomNavigationBar {
                     selectedIcon = Icons.Filled.ShoppingCart,
                     unselectedIcon = Icons.Outlined.ShoppingCart,
                     hasNews = false,
-                    badgeCount = 420
+                    badgeCount = 10
                 ),
                 BottomNavigationItems(
                     title = "Settings",
