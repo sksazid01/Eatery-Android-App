@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
@@ -61,8 +62,8 @@ class Login {
                         )
                         Text(
                             text="Enter Your Email And Password",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(20.dp),
+                            fontSize = 5.em,
+                            modifier = Modifier.padding(20.dp).fillMaxWidth(),
                             color = Color.White
                         )
 
@@ -111,13 +112,13 @@ class Login {
                         ){
                             Text(
                                 text="Don't have an account?",
-                                fontSize = 20.sp,
+                                fontSize = 4.em,
                                 modifier = Modifier.padding(20.dp),
                                 color = Color.White
                             )
                             Text(
                                 text="Sign Up",
-                                fontSize = 20.sp,
+                                fontSize = 4.em,
                                 modifier = Modifier
                                     .padding(5.dp)
                                     .clickable {

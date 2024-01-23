@@ -20,14 +20,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.AlertDialogDefaults.shape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,9 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.TileMode
-import androidx.compose.ui.graphics.painter.BrushPainter
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,14 +44,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-class Class06 {
+class RestaurantClass {
     companion object{
         @Composable
         fun View06(navController: NavController){
+
+            val configuration = LocalConfiguration.current
+            val screenWidthDp = configuration.screenWidthDp.dp
+            val screenHeightDp = configuration.screenHeightDp.dp
+
             Box(
 //                        contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .width(screenWidthDp)
+                    .height(screenHeightDp-100.dp)
                     .background(
                         brush = Brush.linearGradient(
                             colors = listOf(
@@ -176,7 +178,7 @@ fun RestaurantCard(resName:String,status:Boolean,navController: NavController){
             .height(90.dp)
             .fillMaxWidth()
             .clickable {
-                       navController.navigate("Class08")
+                       navController.navigate("ItemClass")
             },
         colors = CardDefaults.cardColors(Color(0xFF84A59D)),
         shape = RoundedCornerShape(20.dp)
@@ -192,8 +194,9 @@ fun RestaurantCard(resName:String,status:Boolean,navController: NavController){
         Text(
             text=resName,
             textAlign = TextAlign.Left,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.width(170.dp)
         )
         Spacer(modifier = Modifier.weight(1f))
         Box(

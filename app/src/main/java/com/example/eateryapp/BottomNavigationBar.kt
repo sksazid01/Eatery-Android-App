@@ -1,19 +1,11 @@
 package com.example.eateryapp
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.ShoppingCart
@@ -21,14 +13,10 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,8 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -87,14 +73,13 @@ class BottomNavigationBar {
                 bottomBar = { BottomBar(items,navController) },
 //                modifier = Modifier.padding(4.dp)
             ) {
-                NavHost(navController = navController, startDestination = "Class06") {
-                    composable("Class06"){ Class06.View06(navController)}
+                NavHost(navController = navController, startDestination = "RestaurantClass") {
+                    composable("RestaurantClass"){ RestaurantClass.View06(navController)}
                     composable("QR"){QR.Qr(navController)}
-                    composable("Class08"){Class08.View08(navController)}
-                    composable("Class10"){Class10.View10(navController)}
+                    composable("ItemClass"){ItemClass.View08(navController)}
+                    composable("CartClass"){CartClass.View10(navController)}
                     composable("Login"){Login.Login(navController)}
                     composable("SignUp"){SignUP.SignUP(navController)}
-
 //                composable("Class0"){ Class0.View0()}
                 }
             }
@@ -120,10 +105,10 @@ class BottomNavigationBar {
                         onClick = {
                             selectedItemIndex = index
                             if(index==0){
-                                navController.navigate("Class06")
+                                navController.navigate("RestaurantClass")
                             }
                             else if(index==1){
-                                navController.navigate("Class10")
+                                navController.navigate("CartClass")
                             }
                             else{
                                 navController.navigate("Login")

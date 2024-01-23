@@ -1,5 +1,6 @@
 package com.example.eateryapp
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -7,8 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -26,17 +29,28 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class SignUP {
     companion object{
         @Composable
         fun SignUP(navController: NavController){
+
+            val configuration = LocalConfiguration.current
+            val screenWidthDp = configuration.screenWidthDp.dp
+            val screenHeightDp = configuration.screenHeightDp.dp
+
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .width(screenWidthDp)
+                    .height(screenHeightDp)
                     .background(
                         brush = Brush.linearGradient(
                             colors = listOf(
@@ -55,21 +69,21 @@ class SignUP {
                 ) {
                     Text(
                         text = "Sign Up",
-                        fontSize = 60.sp,
+                        fontSize = 15.em,
                         modifier = Modifier.padding(40.dp),
                         color = Color.White
                     )
                     Text(
                         text="Enter Your Information",
-                        fontSize = 20.sp,
+                        fontSize = 4.em,
                         modifier = Modifier.padding(20.dp),
                         color = Color.White
                     )
 
-                    var name by remember { mutableStateOf("") }
+                    var nameStore by remember { mutableStateOf("") }
                     OutlinedTextField(
-                        value =name ,
-                        onValueChange ={ name=it},
+                        value =nameStore ,
+                        onValueChange ={ nameStore=it},
                         singleLine = true,
                         label = { Text(text = "User Name")},
                         modifier= Modifier
@@ -101,12 +115,38 @@ class SignUP {
                             .padding(bottom = 30.dp),
                         shape = RoundedCornerShape(20.dp))
 
+
+///////////////////////////////////////////////// Write a message to the database //////////////////////////////////////////////////////////////////
+
+                    val database = Firebase.database
+                    val myRef = database.getReference("SignUP Information")
+
+                    val toastContext = LocalContext.current
+
                     Button(
                         onClick = {
+                                if(nameStore.isNotEmpty() and passStore.isNotEmpty() and mailStore.isNotEmpty()){
 
+
+                                    var data=SingUPData(nameStore,mailStore,passStore)
+
+                                    myRef.child(nameStore).setValue(data)
+                                    .addOnSuccessListener {
+                                        nameStore=""
+                                        mailStore=""
+                                        passStore=""
+                                    Toast.makeText(toastContext,"Account has been successfully created",Toast.LENGTH_SHORT).show()
+
+                                    }.addOnFailureListener {
+                                        Toast.makeText(toastContext,it.toString(),Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            else {
+                                Toast.makeText(toastContext,"Please Insert All The Value",Toast.LENGTH_SHORT).show()
+                            }
                         },
                         modifier = Modifier
-                            .padding(30.dp)
+                            .padding(5.dp)
                             .size(300.dp, 50.dp),
                         colors = ButtonDefaults.buttonColors(Color.Red),
                         shape = RoundedCornerShape(50.dp)
@@ -123,17 +163,17 @@ class SignUP {
                     ){
                         Text(
                             text="Already have an account,",
-                            fontSize = 20.sp,
+                            fontSize = 4.em,
                             modifier = Modifier.padding(20.dp),
                             color = Color.White
                         )
                         Text(
                             text="Login",
-                            fontSize = 20.sp,
+                            fontSize = 4.em,
                             modifier = Modifier
                                 .padding(5.dp)
                                 .clickable {
-                                   navController.navigate("Login")
+                                    navController.navigate("Login")
                                 },
                             color = Color.Blue
                         )
