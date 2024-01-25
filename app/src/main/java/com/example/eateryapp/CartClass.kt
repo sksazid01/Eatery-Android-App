@@ -51,12 +51,6 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-data class RestaurantItems(
-    var itemName: String,
-    var price:Int,
-    var image: Painter,
-    var id:Int
-)
 class CartClass {
         companion object{
             @Composable
@@ -89,15 +83,6 @@ class CartClass {
                     Column(
                         modifier = Modifier.padding(30.dp)
                     ) {
-
-                        val itm = List(3) {
-                                index->
-                            RestaurantItems(
-                                itemName = "Chicken Khichuri",
-                                price = 120,
-                                image = painterResource(id = R.drawable.chickenkkhichuri),
-                                id=index
-                            )}
 
                         Text(text = " "+itm.size.toString()+" items in cart", fontSize = 25.sp, fontWeight = FontWeight.ExtraBold)
                         LazyColumn(content = {
@@ -152,7 +137,6 @@ class CartClass {
                         Spacer(modifier = Modifier.weight(1f))
                     }
 //                        Spacer(modifier = Modifier.height(80.dp))
-
                     }
                 }}
         @Composable

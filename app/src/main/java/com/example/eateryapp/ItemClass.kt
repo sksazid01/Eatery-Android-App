@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,12 +48,10 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-
 class ItemClass {
     companion object{
         @Composable
         fun View08(navController: NavController){
-
             val configuration = LocalConfiguration.current
             val screenWidthDp = configuration.screenWidthDp.dp
             val screenHeightDp = configuration.screenHeightDp.dp
@@ -60,7 +59,7 @@ class ItemClass {
             Box(
                 modifier = Modifier
                     .width(screenWidthDp)
-                    .height(screenHeightDp-100.dp)
+                    .height(screenHeightDp - 100.dp)
                     .background(
                         brush = Brush.linearGradient(
                             colors = listOf(
@@ -123,68 +122,9 @@ class ItemClass {
                     }
                     Spacer(modifier = Modifier.height(35.dp))
 
-                    var resList = List(17) {
-                        index->
-                        RestaurantItems(
-                            itemName = "Chicken Khichuri",
-                            price = 120,
-                            image = painterResource(id = R.drawable.chickenkkhichuri),
-                            id=index
-                        )
-//                        ,RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),RestaurantItems(
-//                            itemName = "Chicken Khichuri",
-//                            price = 120,
-//                            image = painterResource(id = R.drawable.chickenkkhichuri),
-//                        ),
-                    }
-
 
                     LazyVerticalGrid(columns = GridCells.Fixed(2), content ={
-                        items(resList){
+                        items(resName[selectedResID].resitem){
                                 item->
                             RestaurantCard(item)
                         }
@@ -195,40 +135,40 @@ class ItemClass {
         }
 
         @Composable
-        fun RestaurantCard(item:RestaurantItems){
+        fun RestaurantCard(item: RestaurantItems) {
+            val itemName = item.itemName
+            val price = item.price
+            val image = item.image
+            val id = item.id
+            val borderColor = Color.Transparent
 
-            val itemName=item.itemName
-            val price=item.price
-            val image=item.image
-            val id=item.id
-            var isSelected by remember { mutableStateOf(false) }
-            val borderColor= Color.Transparent
+            var isSelected by remember { mutableStateOf(item.isSelected) }
 
+            // Use LaunchedEffect to trigger recomposition when isSelected changes
+            LaunchedEffect(isSelected) {
+                item.isSelected = isSelected
+            }
 
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-//                    .background(if(isSelected) Color.Red else borderColor)
                     .clickable {
-                        isSelected=!isSelected;
-                }
-                    .background(if(isSelected) Color.Red else borderColor)
-                ) {
+                        isSelected = !isSelected
+                    }
+                    .background(if (isSelected) Color.Red else borderColor)
+            ) {
                 Card(
                     modifier = Modifier
                         .padding(10.dp)
                         .size(170.dp),
-//                    .clip(CircleShape),
-//                    colors = CardDefaults.cardColors(Color(0xFF84A59D)),
-                    colors=CardDefaults.cardColors(Color.Transparent),
+                    colors = CardDefaults.cardColors(Color.Transparent),
                     shape = RoundedCornerShape(20.dp),
-
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.BottomStart
-                    ){
+                    ) {
                         Image(
                             painter = image,
                             contentDescription = "",
@@ -251,8 +191,6 @@ class ItemClass {
                             )
                         }
                     }
-
-
                 }
                 Text(
                     text = itemName,
@@ -261,6 +199,7 @@ class ItemClass {
                     fontWeight = FontWeight.ExtraBold
                 )
             }
-            }
         }
+
+    }
     }

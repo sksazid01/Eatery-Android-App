@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -146,9 +147,9 @@ class RestaurantClass {
                    )
 
                    LazyColumn(content ={
-                       items(resList){
-                           item->
-                           RestaurantCard(item.first,item.second,navController)
+                       itemsIndexed(resList){
+                           index,item->
+                           RestaurantCard(item.first,item.second,navController,index)
                        }
                    } )
                    
@@ -159,7 +160,7 @@ class RestaurantClass {
 
 
 @Composable
-fun RestaurantCard(resName:String,status:Boolean,navController: NavController){
+fun RestaurantCard(resName:String,status:Boolean,navController: NavController,index:Int){
     var openOrclose:String;
     var signalColor:Color;
     if (status) {
@@ -178,7 +179,8 @@ fun RestaurantCard(resName:String,status:Boolean,navController: NavController){
             .height(90.dp)
             .fillMaxWidth()
             .clickable {
-                       navController.navigate("ItemClass")
+                selectedResID=index
+                navController.navigate("ItemClass")
             },
         colors = CardDefaults.cardColors(Color(0xFF84A59D)),
         shape = RoundedCornerShape(20.dp)

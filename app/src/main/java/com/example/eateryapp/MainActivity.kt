@@ -41,8 +41,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EateryAppTheme {
+
+                LoadData()
+
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "MapClass") {
+            NavHost(navController = navController, startDestination = "RestaurantClass") {
                 composable("Main") { FirstScreen(navController)}
                 composable("Class02") { Class02.View02(navController) }
                 composable("Class03"){ Class03.View03(navController)}
