@@ -155,6 +155,8 @@ class ItemClass {
                 modifier = Modifier
                     .clickable {
                         isSelected = !isSelected
+                        item.numberOfSelection= if(isSelected) 1 else 0;
+                        totalItemInCart += item.numberOfSelection;
                     }
                     .background(if (isSelected) Color.Red else borderColor)
             ) {

@@ -18,7 +18,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -37,7 +39,7 @@ data class BottomNavigationItems(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     val hasNews: Boolean,
-    val badgeCount: Int? = null
+    var badgeCount: Int? = null
 )
 
 class BottomNavigationBar {
@@ -57,7 +59,7 @@ class BottomNavigationBar {
                     selectedIcon = Icons.Filled.ShoppingCart,
                     unselectedIcon = Icons.Outlined.ShoppingCart,
                     hasNews = false,
-                    badgeCount = 10
+                    badgeCount = 0
                 ),
                 BottomNavigationItems(
                     title = "Settings",
@@ -89,13 +91,20 @@ class BottomNavigationBar {
         @Composable
         fun BottomBar(items:List<BottomNavigationItems>,navController: NavController)
         {
-            var selectedItemIndex by rememberSaveable {mutableStateOf(0)}
+            var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
 
             NavigationBar(
                 containerColor  = Color.Black,
                 modifier = Modifier.height(100.dp)
 
             ) {
+
+
+                LaunchedEffect(totalItemInCart){
+                    items[1].badgeCount=totalItemInCart;
+                }
+
+
                 items.forEachIndexed {
                         index, item ->
 

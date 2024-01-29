@@ -20,6 +20,11 @@ data class RestaurantName(
     var resitem:List<RestaurantItems>
 )
 
+
+
+
+var totalItemInCart:Int=0
+
 var selectedResID = -1
 
 var itm:List<RestaurantItems> = emptyList()

@@ -17,9 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
@@ -30,6 +28,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -41,7 +40,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -54,11 +52,13 @@ import androidx.navigation.NavController
 class CartClass {
         companion object{
             @Composable
-            fun View10(navController: NavController){
+            fun View10(navController: NavController)
+            {
 
                 val configuration = LocalConfiguration.current
                 val screenWidthDp = configuration.screenWidthDp.dp
                 val screenHeightDp = configuration.screenHeightDp.dp
+
 
 //                val scrollState = rememberScrollState()
 
@@ -66,7 +66,7 @@ class CartClass {
 //                        contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .width(screenWidthDp)
-                        .height(screenHeightDp-100.dp)
+                        .height(screenHeightDp - 100.dp)
                         .background(
                             brush = Brush.linearGradient(
                                 colors = listOf(
@@ -83,16 +83,29 @@ class CartClass {
                     Column(
                         modifier = Modifier.padding(30.dp)
                     ) {
+                        Text(text = " "+"Selected"+" items in cart", fontSize = 25.sp, fontWeight = FontWeight.ExtraBold)
 
-                        Text(text = " "+itm.size.toString()+" items in cart", fontSize = 25.sp, fontWeight = FontWeight.ExtraBold)
-                        LazyColumn(content = {
-                            items(itm){
-                                item->
-                                CartItem(item)
-                            }
-                        })
+
+
+                        var isPressClear by remember { mutableStateOf(false) }
+
+                        Box(modifier=Modifier.height(screenHeightDp-350.dp)) {
+                                LazyColumn(
+                                    content = {
+                                        isPressClear=false
+                                        items(itm) { item ->
+                                            if(item.numberOfSelection>0)
+                                                CartItem(item, navController);
+                                        }
+                                    },
+                                )
+                        }
+
+
+
+
+
                         Spacer(modifier = Modifier.weight(1f))
-
 //                        Text("Order instructions",
 //                            textAlign = TextAlign.Center,
 //                            modifier = Modifier.padding(bottom = 5.dp, start = 5.dp)
@@ -102,9 +115,14 @@ class CartClass {
                             value =textfield ,
                             onValueChange ={ textfield=it},
                             singleLine = true,
-                            label = { Text(text = "Provide a short instruction")},
+
+                            label = { Text(text = "Provide a short instruction", textAlign = TextAlign.Center, modifier = Modifier.padding(5.dp))},
 //                            colors = TextFieldDefaults.colors()
-                            modifier=Modifier.fillMaxWidth().height(60.dp).padding(start = 10.dp, end = 10.dp),
+
+                            modifier= Modifier
+                                .fillMaxWidth()
+                                .height(65.dp)
+                                .padding(start = 10.dp, end = 10.dp),
                             shape = RoundedCornerShape(20.dp)
                         )
                         Text(text = "Total: ", fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(start = 15.dp))
@@ -128,31 +146,47 @@ class CartClass {
                         Row {
 
                         Spacer(modifier = Modifier.weight(1f))
-                        Text(
-                            text="Back to Menu",
-                            fontWeight = FontWeight.ExtraBold
-//                                modifier = Modifier.
-//                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
+//                        Text(
+//                            text="Back to Menu",
+//                            fontWeight = FontWeight.ExtraBold
+////                                modifier = Modifier.
+////                            textAlign = TextAlign.Center
+//                        )
+//                        Spacer(modifier = Modifier.weight(1f))
                     }
 //                        Spacer(modifier = Modifier.height(80.dp))
                     }
-                }}
+                }
+            }
         @Composable
-        fun CartItem(item: RestaurantItems){
+        fun CartItem(item: RestaurantItems, navController: NavController){
            OutlinedCard (
                modifier = Modifier
                    .padding(5.dp)
                    .height(90.dp)
-//                   .background(Color.Transparent)
+//                   .background(Color.Red)
                    .fillMaxWidth()
            ){
                Row(
                    modifier = Modifier
                        .fillMaxSize()
-//                       .background(Color.R)
+
+
+                       .background(
+                           brush = Brush.linearGradient(
+                               colors = listOf(
+                                   Color(0xFFF5E667),
+                                   Color(0xFFED8888)
+                               ),
+                               start = Offset.Zero,
+                               end = Offset.Infinite,
+                               tileMode = TileMode.Decal
+                           )
+                       )
+
+
                ) {
+                   var value by remember { mutableIntStateOf(item.numberOfSelection) }
                    Image(painter = item.image, contentDescription ="" ,
                        alignment = Alignment.CenterStart,
                        modifier = Modifier.size(90.dp),
@@ -170,24 +204,36 @@ class CartClass {
                        Text(text = item.itemName)
                        Text(text = item.price.toString()+"৳",
 //                           textAlign = TextAlign.Center
+                             fontWeight = FontWeight.ExtraBold
                            )
 
-                       var value by remember { mutableIntStateOf(0) }
+
                        Row {
                            Icon(painter = painterResource(id = R.drawable.baseline_remove_24), contentDescription ="",modifier = Modifier.clickable {
                                 value--
-                               if(value<0) value=0
+                                totalItemInCart--
+                                item.numberOfSelection--
+                               if(value<1) {
+                                   value = 1;
+                                   item.numberOfSelection = 1;
+                                   totalItemInCart++
+                               }
                            } )
 
                            Text(text = "  $value  ")
                            Icon(imageVector = Icons.Default.Add, contentDescription = "",modifier = Modifier.clickable {
                                 value++
+                                totalItemInCart++
+                                item.numberOfSelection++
                            })
                        }
                    }
                Spacer(modifier = Modifier.weight(1f))
                Icon(imageVector = Icons.Default.Clear, contentDescription = "", modifier = Modifier.clickable {
-
+                   item.numberOfSelection=0;
+                   item.isSelected=false
+                   value=0;
+                   navController.navigate("CartClass")
                })
            }}
         }
