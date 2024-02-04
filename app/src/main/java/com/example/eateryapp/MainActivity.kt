@@ -33,7 +33,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.eateryapp.Data.LoadData
 import com.example.eateryapp.ui.theme.EateryAppTheme
+import com.example.eateryapp.Screens.Class02
+import com.example.eateryapp.Screens.Class03
+import com.example.eateryapp.Screens.Class04
+import com.example.eateryapp.Screens.MapClass
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
@@ -42,7 +47,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             EateryAppTheme {
                 LoadData()
-
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "Main") {
                 composable("Main") { FirstScreen(navController)}

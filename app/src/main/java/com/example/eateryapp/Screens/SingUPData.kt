@@ -1,4 +1,4 @@
-package com.example.eateryapp
+package com.example.eateryapp.Screens
 
 data class SingUPData(
     var name:String,

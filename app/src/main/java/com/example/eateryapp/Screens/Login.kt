@@ -1,4 +1,4 @@
-package com.example.eateryapp
+package com.example.eateryapp.Screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

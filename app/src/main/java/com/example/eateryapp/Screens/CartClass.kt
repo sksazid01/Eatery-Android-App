@@ -1,4 +1,4 @@
-package com.example.eateryapp
+package com.example.eateryapp.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,7 +28,6 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -48,6 +47,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.eateryapp.Data.RestaurantItems
+import com.example.eateryapp.Data.itm
+import com.example.eateryapp.Data.totalItemInCart
+import com.example.eateryapp.R
 
 class CartClass {
         companion object{

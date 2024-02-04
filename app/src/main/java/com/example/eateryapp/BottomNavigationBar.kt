@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -32,6 +31,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.eateryapp.Data.totalItemInCart
+import com.example.eateryapp.Screens.CartClass
+import com.example.eateryapp.Screens.ItemClass
+import com.example.eateryapp.Screens.Login
+import com.example.eateryapp.Screens.QR
+import com.example.eateryapp.Screens.RestaurantClass
+import com.example.eateryapp.Screens.SignUP
 
 
 data class BottomNavigationItems(
@@ -77,11 +83,11 @@ class BottomNavigationBar {
             ) {
                 NavHost(navController = navController, startDestination = "RestaurantClass") {
                     composable("RestaurantClass"){ RestaurantClass.View06(navController)}
-                    composable("QR"){QR.Qr(navController)}
-                    composable("ItemClass"){ItemClass.View08(navController)}
-                    composable("CartClass"){CartClass.View10(navController)}
-                    composable("Login"){Login.Login(navController)}
-                    composable("SignUp"){SignUP.SignUP(navController)}
+                    composable("QR"){ QR.Qr(navController)}
+                    composable("ItemClass"){ ItemClass.View08(navController)}
+                    composable("CartClass"){ CartClass.View10(navController)}
+                    composable("Login"){ Login.Login(navController)}
+                    composable("SignUp"){ SignUP.SignUP(navController)}
 //                composable("Class0"){ Class0.View0()}
                 }
             }
@@ -101,7 +107,7 @@ class BottomNavigationBar {
 
 
                 LaunchedEffect(totalItemInCart){
-                    items[1].badgeCount=totalItemInCart;
+                    items[1].badgeCount= totalItemInCart;
                 }
 
 

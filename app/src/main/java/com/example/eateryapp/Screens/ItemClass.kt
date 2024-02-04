@@ -1,4 +1,4 @@
-package com.example.eateryapp
+package com.example.eateryapp.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -47,6 +47,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.eateryapp.Data.RestaurantItems
+import com.example.eateryapp.Data.resName
+import com.example.eateryapp.Data.selectedResID
+import com.example.eateryapp.Data.totalItemInCart
+import com.example.eateryapp.R
 
 class ItemClass {
     companion object{

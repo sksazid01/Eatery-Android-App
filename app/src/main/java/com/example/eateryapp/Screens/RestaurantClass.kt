@@ -1,4 +1,4 @@
-package com.example.eateryapp
+package com.example.eateryapp.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,6 +43,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.eateryapp.Data.selectedResID
+import com.example.eateryapp.R
 
 class RestaurantClass {
     companion object{
@@ -179,7 +180,7 @@ fun RestaurantCard(resName:String,status:Boolean,navController: NavController,in
             .height(90.dp)
             .fillMaxWidth()
             .clickable {
-                selectedResID=index
+                selectedResID =index
                 navController.navigate("ItemClass")
             },
         colors = CardDefaults.cardColors(Color(0xFF84A59D)),

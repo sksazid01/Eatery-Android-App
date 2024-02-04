@@ -1,8 +1,9 @@
-package com.example.eateryapp
+package com.example.eateryapp.Data
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import com.example.eateryapp.R
 
 data class RestaurantItems(
     var itemName: String,
@@ -106,7 +107,7 @@ fun LoadData() {
         ),
     )
 
-    resName=listOf(
+    resName =listOf(
         RestaurantName(
             name = "Central Cafeteria,SUST",
             status = true,

@@ -1,8 +1,8 @@
-package com.example.eateryapp
+package com.example.eateryapp.Screens
 
-import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,15 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.ui.res.painterResource
@@ -33,14 +30,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.eateryapp.R
 
-class Class04 {
+class Class03 {
     companion object{
 
         @Composable
-        fun View04(navController: NavController){
+        fun View03(navController: NavController){
             Box(
-//              contentAlignment = Alignment.Center,
+//                        contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
@@ -55,18 +53,26 @@ class Class04 {
                         )
                     )
             ){
-//                Row (
-//                    modifier = Modifier.height(60.dp).fillMaxWidth(),
-//                    horizontalArrangement = Arrangement.End
-//                ){
-//                    Button(onClick = { /*TODO*/ }, modifier = Modifier.padding(10.dp)) {
-//                        Text(
-//                            text = "Skip > ",
-//                            color = Color.Red,
-//                        )
-//
-//                    }
+                Row (
+                    modifier = Modifier
+                        .height(60.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+
+
+//                    Button(onClick = {
+//                            navController.navigate("Class05")
+//                    }, modifier = Modifier.padding(10.dp)) {
 //                }
+
+                        Text(
+                            text = "Skip > ",
+                            color = Color.Red,
+                            modifier = Modifier.padding(10.dp).clickable { navController.navigate("MapClass") },
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                }
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize(),
@@ -75,7 +81,7 @@ class Class04 {
                 ){
 //                        Spacer(modifier = Modifier.height(14.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.img4),
+                        painter = painterResource(id = R.drawable.img3),
                         contentDescription = "",
                         modifier = Modifier
                             .size(250.dp)
@@ -108,7 +114,7 @@ class Class04 {
 //                        Spacer(modifier = Modifier.height(250.dp))
                     Button(
                         onClick = {
-                                  navController.navigate("MapClass")
+                                  navController.navigate("Class04")
                                   },
                         modifier = Modifier
                             .padding(30.dp)
@@ -118,7 +124,7 @@ class Class04 {
 
                     ) {
                         Text(
-                            text = "GET STARTED",
+                            text = "NEXT",
                             color = Color.White,
 //                                fontWeight = FontWeight.ExtraBold
                         )
